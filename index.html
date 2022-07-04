@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <div>
+        <form method="POST">
+            <div>
+                <label>
+                    <input type="email" name='email' id="email">
+                </label>
+            </div>
+
+            <div>
+                <button>Send me email</button>
+            </div>
+        </form>
+    </div>
+    
+    <script src="axios.min.js"></script>
+    <script>
+        (async function(){
+            const feedback = await axios.get("http://localhost:4433/")
+
+            console.log(feedback);
+
+
+
+
+        }())
+
+        document.querySelector("form").addEventListener("submit", async function(event){
+            event.preventDefault();
+
+            let email = this.email.value.trim()
+
+            email = email.length > 0 ? email : null;
+
+            const parameters = {
+                email: email
+            }
+           const feedback = await axios.post("http://localhost:4433/sendmail", parameters);
+            
+           console.log(feedback);
+        
+        })
+
+    </script>
+
+</body>
+</html>
